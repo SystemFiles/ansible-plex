@@ -1,0 +1,8 @@
+---
+# tasks file for ansible-plex
+
+- name: Include storage tasks
+  include_tasks: "storage.yml"
+- name: Include ubuntu specific tasks
+  include_tasks: "ubuntu.yml"
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'Ubuntu'

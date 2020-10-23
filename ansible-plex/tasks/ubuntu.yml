@@ -1,0 +1,43 @@
+---
+# Ubuntu specific installation for plex server
+
+- name: Make sure apt repos are up-to-date
+  apt:
+    name: '*'
+    state: latest
+- name: Add apt-transpart-https (Req)
+  apt:
+    name: apt-transpart-https
+    state: present
+- name: Add plex GPG key
+  apt_key:
+    url: https://downloads.plex.tv/plex-keys/PlexSign.key
+    state: present
+- name: Add the repository to sources
+  apt_repository:
+    repo: deb https://downloads.plex.tv/repo/deb public main
+    state: present
+    filename: plexmediaserver
+- name: Update from newly added sources
+  apt:
+    name: '*'
+    state: latest
+- name: Install the plex media server and Nginx
+  apt:
+    name: [ "plexmediaserver", "nginx" ]
+    state: present
+- name: Copy reverse proxy nginx.conf
+  copy:
+    src: "{{ role_path }}/files/nginx.conf"
+    dest: /etc/nginx/nginx.conf
+    owner: "{{ nginx.owner }}"
+    group: "{{ nginx.group }}"
+    mode: "770"
+    follow: true
+- name: Restart services
+  systemd:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - plexmediaserver
+    - nginx

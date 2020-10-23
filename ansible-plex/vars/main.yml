@@ -1,0 +1,12 @@
+---
+# vars file for ansible-plex
+
+# Plex config vars
+plex_media: 
+  - { group: "plex", user: "plex", path: "/media/usb_storage/plex/movies" } 
+  - { group: "plex", user: "plex", path: "/media/usb_storage/plex/tv" }
+  - { group: "plex", user: "plex", path: "/media/usb_storage/plex/music" }
+
+nginx:
+  owner: plex
+  group: plex
