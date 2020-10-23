@@ -12,7 +12,7 @@
   apt_key:
     url: https://downloads.plex.tv/plex-keys/PlexSign.key
     state: present
-- name: Add the repository to sources
+- name: Add the plex repository to sources (for later updating with apt)
   apt_repository:
     repo: deb https://downloads.plex.tv/repo/deb public main
     state: present
@@ -36,10 +36,17 @@
     group: "{{ nginx.group }}"
     mode: "770"
     follow: true
-# - name: Restart services
-#   systemd:
-#     name: "{{ item }}"
-#     state: restarted
-#   with_items:
-#     - plexmediaserver
-#     - nginx
+- name: Restart services
+  systemd:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - plexmediaserver
+    - nginx
+- name: Ensure services are enabled on restart
+  systemd:
+    name: "{{ item }}"
+    enabled: true
+  with_items:
+    - plexmediaserver
+    - nginx
