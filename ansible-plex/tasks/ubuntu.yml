@@ -5,9 +5,6 @@
   apt:
     name: '*'
     state: latest
-- name: TEMP DOCKER STUFF
-  apt:
-    name: [ "systemctl", "nano", "gpg" ]
 - name: Add plex GPG key
   apt_key:
     url: https://downloads.plex.tv/plex-keys/PlexSign.key
