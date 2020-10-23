@@ -1,4 +1,4 @@
 ---
 # defaults file for ansible-plex
 
-plex_version: 1.20.3.3483-211702a9f_amd64
+plex_version: 1.20.3.3483-211702a9f_arm64
