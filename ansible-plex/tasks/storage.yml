@@ -2,13 +2,14 @@
 # Configure folders for storing TV shows, Movies, etc... from config
 
 # ENABLE WITH CAUTION
-# - name: Create the path for plex media
-#   file:
-#     path: "{{ item.path }}"
-#     group: "{{ item.group }}"
-#     owner: "{{ item.user }}"
-#     mode: "770"
-#     state: directory
-#     recurse: true
-#   with_items:
-#     - "{{ plex_media }}"
+- name: Create the path for plex media
+  file:
+    path: "{{ item.path }}"
+    group: "{{ item.group }}"
+    owner: "{{ item.user }}"
+    mode: "770"
+    state: directory
+    recurse: true
+  with_items:
+    - "{{ plex_media }}"
+  when: create_storage is defined and create_storage == true
