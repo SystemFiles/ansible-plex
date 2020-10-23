@@ -5,10 +5,9 @@
   apt:
     name: '*'
     state: latest
-- name: Add apt-transpart-https (Req)
+- name: TEMP DOCKER STUFF
   apt:
-    name: apt-transpart-https
-    state: present
+    name: [ "systemctl", "nano", "gpg" ]
 - name: Add plex GPG key
   apt_key:
     url: https://downloads.plex.tv/plex-keys/PlexSign.key
@@ -22,10 +21,13 @@
   apt:
     name: '*'
     state: latest
-- name: Install the plex media server and Nginx
+- name: Install Nginx (reverse-proxy)
   apt:
-    name: [ "plexmediaserver", "nginx" ]
+    name: nginx
     state: present
+- name: Install Plex from Deb Package
+  apt:
+    deb: https://downloads.plex.tv/plex-media-server-new/1.20.3.3483-211702a9f/debian/plexmediaserver_{{ plex_version }}.deb
 - name: Copy reverse proxy nginx.conf
   copy:
     src: "{{ role_path }}/files/nginx.conf"
@@ -34,10 +36,10 @@
     group: "{{ nginx.group }}"
     mode: "770"
     follow: true
-- name: Restart services
-  systemd:
-    name: "{{ item }}"
-    state: restarted
-  with_items:
-    - plexmediaserver
-    - nginx
+# - name: Restart services
+#   systemd:
+#     name: "{{ item }}"
+#     state: restarted
+#   with_items:
+#     - plexmediaserver
+#     - nginx
