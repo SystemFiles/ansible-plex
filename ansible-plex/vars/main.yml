@@ -4,8 +4,8 @@
 # Plex config vars
 plex_media: 
   - { group: "plex", user: "plex", path: "/media/plex_storage/movies" } 
-  - { group: "plex", user: "plex", path: "/media/usb_storage/tv" }
-  - { group: "plex", user: "plex", path: "/media/usb_storage/music" }
+  - { group: "plex", user: "plex", path: "/media/plex_storage/tv" }
+  - { group: "plex", user: "plex", path: "/media/plex_storage/music" }
 
 nginx:
   owner: plex

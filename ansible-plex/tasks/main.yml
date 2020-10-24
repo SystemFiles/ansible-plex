@@ -1,14 +1,9 @@
 ---
 # tasks file for ansible-plex
 
-- name: Create plex group
-  group:
-    name: plex
-    state: present
 - name: Create plex user
   user:
     name: plex
-    group: plex
     append: yes
 
 - name: Include ubuntu specific tasks
