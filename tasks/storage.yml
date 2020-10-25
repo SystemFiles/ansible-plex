@@ -11,4 +11,3 @@
     state: directory
   with_items:
     - "{{ plex_media }}"
-  when: create_storage is defined and create_storage == true
